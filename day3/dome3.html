@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="../vue.js"></script>
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="no-key-example">
+    <div>
+      <template v-if="loginType === 'username'">
+        <label>Username</label>
+        <input placeholder="Enter your username">
+      </template>
+      <template v-else="">
+        <label>Email</label>
+        <input placeholder="Enter your email address">
+      </template>
+    </div>
+    <button @click="toggleLoginType">Toggle login type</button>
+  </div>
+
+  <div id="no-key-show">
+    <div>
+      <div v-show="loginType === 'username'">
+        <label>Username</label>
+        <input placeholder="Enter your username">
+      </div>
+    </div>
+    <button @click="toggleLoginType2">Toggle login type</button>
+  </div>
+
+  <div class="dome3">
+    <ul>
+      <template v-for="(item,index) in items">
+        <li>{{ item.msg }}</li>
+        <li class="divider">{{index}}</li>
+      </template>
+    </ul>
+  </div>
+
+  <div id="todo-list-example">
+    <input
+      v-model="newTodoText"
+      v-on:keyup.enter="addNewTodo"
+      placeholder="Add a todo"
+    >
+    <ul>
+      <li
+        is="todo-item"
+        v-for="(todo, index) in todos"
+        v-bind:title="todo"
+        v-on:remove="todos.splice(index, 1)"
+      ></li>
+    </ul>
+  </div>
+
+  <script>
+  var dome1  = new Vue({
+    el: '#no-key-example',
+    data: {
+      loginType: 'username'
+    },
+    methods: {
+      toggleLoginType: function () {
+        return this.loginType = this.loginType === 'username' ? 'email' : 'username';
+        
+      }
+    }
+  })
+  var dome2  = new Vue({
+    el: '#no-key-show',
+    data: {
+      loginType: 'username'
+    },
+    methods: {
+      toggleLoginType2: function () {
+        return this.loginType = this.loginType === 'username' ? 'email' : 'username';
+        
+      }
+    }
+  })
+  var dome3 = new Vue({
+    el: '.dome3',
+    data: {
+      parentMessage: 'Parent',
+      items: [
+        { msg: 'Foo' },
+        { msg: 'Bar' }
+      ]
+    }
+  })
+
+  Vue.component('todo-item', {
+    template: '\
+      <li>\
+        {{ title }}\
+        <button v-on:click="$emit(\'remove\')">X</button>\
+      </li>\
+    ',
+    props: ['title']
+  })
+  new Vue({
+    el: '#todo-list-example',
+    data: {
+      newTodoText: '',
+      todos: [
+        'Do the dishes',
+        'Take out the trash',
+        'Mow the lawn'
+      ]
+    },
+    methods: {
+      addNewTodo: function () {
+        this.todos.push(this.newTodoText)
+        this.newTodoText = ''
+      }
+    }
+  })
+  </script>
+</body>
+
+</html>

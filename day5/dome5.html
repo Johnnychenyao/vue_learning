@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="../vue.js"></script>
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="bg">
+    
+  <div id="demo-2">
+    <input v-model="parentMsg">
+    <br>
+    <child v-bind:my-message="parentMsg"></child>
+  </div>
+  
+  </div>
+  <script>
+    
+    new Vue({
+      el: '#demo-2',
+      data: {
+        parentMsg: 'Message from parent'
+      },
+      components: {
+        child: {
+          props: ['myMessage'],
+          template: '<span>{{myMessage}}</span>'
+        }
+      }
+    })
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="vue.js"></script>
+  <title>Document</title>
+</head>
+
+<body>
+    
+  
+  <div id="demo-6" v-bind:class="{ active: isActive }"></div>
+  <div class="static"
+      v-bind:class="{ active: isActive, 'text-danger': hasError }">
+  </div>
+
+  <h1 v-if="ok">Yes</h1>
+  
+
+  <div id="demo6-1">
+    <template v-if="ok">
+      <h1>Title</h1>
+      <p>Paragraph 1</p>
+      <p>Paragraph 2</p>
+    </template>
+  </div>
+
+  <div id="example-0">
+    <div v-if="Math.random() > 0.5">
+      Now you see me
+    </div>
+    <div v-else>
+      Now you don't
+    </div>
+  </div>
+
+  <script>
+    new Vue({
+      el:'#demo6-1',
+      data:{
+        ok: true
+      }
+    });
+    new Vue({
+      el:'#example-0',
+    });
+  </script>
+
+  <div id="no-key-example" class="demo">
+    <template v-if="loginType === 'username'">
+      <div>
+        <label>Username</label>
+        <input placeholder="Enter your username" key="username-input">
+      </div>
+    </template>
+    <template v-else>
+      <div>
+        <label>Email</label>
+        <input placeholder="Enter your email address" key="email-input">
+      </div>
+    </template>
+    <button @click="toggleLoginType">Toggle login type</button>
+  </div>
+
+  <div id="example-1">
+    <input v-model="message" placeholder="edit me">
+    <p>Message is: {{ message }}</p>
+  </div>
+
+
+    <div id="example-2">
+      <input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
+      <label for="jack">Jack</label>
+      <input type="checkbox" id="john" value="John" v-model="checkedNames">
+      <label for="john">John</label>
+      <input type="checkbox" id="mike" value="Mike" v-model="checkedNames">
+      <label for="mike">Mike</label>
+      <br>
+      <span>Checked names: {{ checkedNames }}</span>
+    </div>
+
+    
+  <div id="example-3">
+    <input type="checkbox" id="checkbox" v-model="checked">
+    <label for="checkbox">{{ checked }}</label>
+  </div>
+
+  <div id="example-4">
+    <select v-model="selected">
+      <option v-for="option in options" v-bind:value="option.value">
+        {{option.text}}
+      </option>
+    </select>
+    <span>Selected: {{selected}}</span>
+  </div>
+
+
+  <script>
+    
+    new Vue({
+      el: '#demo-6',
+      data: {
+        isActive: true,
+        hasError: false
+      }
+    })
+
+    new Vue({
+      el: '.static',
+      data: {
+        isActive: true,
+        hasError: false
+      }
+    })
+
+
+    new Vue({
+      el:'#no-key-example',
+      data: {
+        loginType: 'username'
+      },
+      methods:{
+        toggleLoginType: function(){
+          return this.loginType = this.loginType === 'username'?'email':'username'
+          console.log(this.loginType)
+        }
+      }
+    })
+
+    new Vue({
+      el: '#example-1',
+      data: {
+        message: ''
+      }
+    })
+
+    new Vue({
+      el: '#example-2',
+      data: {
+        checkedNames: []
+      }
+    })
+    
+    new Vue({
+      el: '#example-3',
+      data: {
+        checked: false
+      }
+    })
+
+    new Vue({
+      el: '#example-4',
+      data: {
+        selected: 'A',
+        options:[
+          {text:'One',value:'A'},
+          {text:'Two',value:'B'},
+          {text:'Three',value:'C'},
+        ]
+      }
+    })
+
+
+
+  </script>
+</body>
+
+</html>
