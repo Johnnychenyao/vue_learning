@@ -263,6 +263,45 @@
   })
 </script>
 
+<!-------------------------------------------------->
+<h2>状态动画 与 watcher</h2>
+<script src="https://unpkg.com/tween.js@16.3.4"></script>
+<div id="animated-number-demo">
+  <input v-model.number="number" type="number" step="20">
+  <p>{{ animatedNumber }}</p>
+</div>
+<script>
+  new Vue({
+    el:'#animated-number-demo',
+    data:{
+      number: 0,
+      animatedNumber: 0
+    },
+    watch:{
+      number: function(newValue,oldValue){
+        var vm = this
+        function animate () {
+          if (TWEEN.update()) {
+            requestAnimationFrame(animate)
+          }
+        }
+        new TWEEN.Tween({ tweeningNumber: oldValue })
+          .easing(TWEEN.Easing.Quadratic.Out)
+          .to({ tweeningNumber: newValue }, 500)
+          .onUpdate(function () {
+            vm.animatedNumber = this.tweeningNumber.toFixed(0)
+          })
+          .start()
+        animate()
+      }
+    }
+  })
+</script>
+
+
+
+
+
 </body>
 
 </html>
